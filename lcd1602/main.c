@@ -43,12 +43,6 @@
 // - To compile the firmware using the Arduino IDE, follow the instructions in the
 //   .ino file.
 //
-// Operating Instructions:
-// -----------------------
-// - Connect the board via USB to your PC. It should be detected as a CDC device.
-// - Open a serial monitor and select the correct serial port (BAUD rate doesn't
-//   matter).
-// - Send a text message, it should be displayed on the OLED.
 
 // ===================================================================================
 // Libraries, Definitions and Macros

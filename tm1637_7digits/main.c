@@ -1,23 +1,20 @@
 // ===================================================================================
-// Project:   USB CDC OLED Terminal for CH551, CH552, CH554
+// Project:   TM1637 7-digit driver for CH551, CH552, CH554
 // Version:   v1.1
-// Year:      2022
-// Author:    Stefan Wagner
-// Github:    https://github.com/wagiminator
-// EasyEDA:   https://easyeda.com/wagiminator
+// Year:      2024
+// Author:    Francois Blanchette
+// Github:    https://github.com/cfrankb
 // License:   http://creativecommons.org/licenses/by-sa/3.0/
 // ===================================================================================
 //
 // Description:
 // ------------
-// This code implements a simple USB controlled 128x64 pixels I2C OLED display.
-// The CH55x builds a USB communication device class (CDC) for serial communication
-// via USB. Text messages of all kinds can be sent via the USB interface and shown
-// on the OLED display. The integrated buzzer gives an acoustic signal for every
-// message received.
+// This code implements an interface for the standard
+// TM1637 7-digit module.
 //
 // References:
 // -----------
+// - Wagiminator: https://github.com/wagiminator
 // - Blinkinlabs: https://github.com/Blinkinlabs/ch554_sdcc
 // - Deqing Sun: https://github.com/DeqingSun/ch55xduino
 // - Ralph Doncaster: https://github.com/nerdralph/ch554_sdcc
@@ -26,13 +23,10 @@
 //
 // Wiring:
 // -------
-//                                       +--\/--+
-//                --------- SCS A1 P14  1|°     |10 V33
-//         BUZZER --- PWM1 MOSI A2 P15  2|      |9  Vcc
-//     OLED (SDA) ------ MISO RXD1 P16  3|      |8  GND
-//     OLED (SCL) ------- SCK TXD1 P17  4|      |7  P37 UDM --- USB D-
-//                ---------------- RST  6|      |6  P36 UDP --- USB D+
-//                                       +------+
+//
+// CLK < -- > P33
+// DIO < -- > P34
+//
 //
 // Compilation Instructions:
 // -------------------------
@@ -43,15 +37,6 @@
 // - Press BOOT button on the board and keep it pressed while connecting it via USB
 //   with your PC.
 // - Run 'make flash' immediatly afterwards.
-// - To compile the firmware using the Arduino IDE, follow the instructions in the
-//   .ino file.
-//
-// Operating Instructions:
-// -----------------------
-// - Connect the board via USB to your PC. It should be detected as a CDC device.
-// - Open a serial monitor and select the correct serial port (BAUD rate doesn't
-//   matter).
-// - Send a text message, it should be displayed on the OLED.
 
 // ===================================================================================
 // Libraries, Definitions and Macros
