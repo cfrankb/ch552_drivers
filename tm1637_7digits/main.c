@@ -24,9 +24,12 @@
 // Wiring:
 // -------
 //
-// CLK < -- > P33
-// DIO < -- > P34
+//    CLK   < -- >    P33
+//    DIO   < -- >    P34
+//    GND    <-->     GND
+//    VCC    <-->     VCC *
 //
+// The tm1637 can operate on either 3v or 5v.
 //
 // Compilation Instructions:
 // -------------------------
@@ -44,13 +47,11 @@
 
 // Libraries
 #include <stdio.h>
-#include "src/config.h" // user configurations
-#include "src/system.h" // system functions
-#include "src/gpio.h"   // for GPIO
-#include "src/delay.h"  // for delays
-// #include "src/usb_cdc.h" // for USB-CDC serial
-// #include "src/lcd1602.h" // for lcd1602
-#include "src/tm1637plus.h"
+#include "src/config.h"     // user configurations
+#include "src/system.h"     // system functions
+#include "src/gpio.h"       // for GPIO
+#include "src/delay.h"      // for delays
+#include "src/tm1637plus.h" // tm1637 7digit display driver
 
 // ===================================================================================
 // Main Function
@@ -62,9 +63,9 @@
 void main(void)
 {
   // Setup
-  CLK_config(); // configure system clock
-  DLY_ms(5);    // wait for clock to stabilize
-  tm1637_init();
+  CLK_config();  // configure system clock
+  DLY_ms(5);     // wait for clock to stabilize
+  tm1637_init(); // initialize the display
 
   while (1)
   {
@@ -90,7 +91,6 @@ void main(void)
 
     for (uint8_t x = 0; x < 3; ++x)
     {
-
       // Display time with blinking dots
       for (int z = 0; z < 5; ++z)
       {
@@ -115,33 +115,5 @@ void main(void)
       tm1637_set_char(3, v, show_dot);
       DLY_ms(100);
     }
-
-    // test scrolling
-    // tm1637.scroll("    getting the tm1637 to work in cpp was a lot fun   ");
   }
-
-  /*
-    while (1)
-    {
-      i2clcd_putstr("I2C LCD Tutorial");
-      DLY_ms(2000);
-      i2clcd_clear();
-      i2clcd_putstr("Lets Count 0-10!");
-      DLY_ms(2000);
-      i2clcd_clear();
-      for (int i = 0; i <= 10; ++i)
-      {
-        char t[2];
-        t[0] = '0' + i;
-        t[1] = '\0';
-        i2clcd_putstr(i == 10 ? "10" : t);
-        i2clcd_backlight_on();
-        DLY_ms(1000);
-        i2clcd_backlight_off();
-        DLY_ms(2000);
-        i2clcd_clear();
-      }
-      i2clcd_backlight_on();
-    }
-    */
 }

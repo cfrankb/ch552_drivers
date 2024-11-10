@@ -89,8 +89,4 @@ clean:
 	@echo "Cleaning all up ..."
 	@$(CLEAN)
 	@rm -f $(TARGET).hex $(TARGET).bin
-	ifdef BUILD_DIR
-		rm -f $(BUILD_DIR)/*
-	else
-		$(error BUILD_DIR is not set)
-	endif
+	@rm -f $(BUILD_DIR)/*

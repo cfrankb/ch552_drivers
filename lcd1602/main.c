@@ -1,5 +1,5 @@
 // ===================================================================================
-// Project:   LCD1602/2004 for CH551, CH552, CH554
+// Project:   I2C LCD1602/2004 for CH551, CH552, CH554
 // Version:   v1.1
 // Year:      2024
 // Author:    Francois Blanchette
@@ -23,13 +23,16 @@
 //
 // Wiring:
 // -------
-//                                       +--\/--+
-//                --------- SCS A1 P14  1|°     |10 V33
-//                --- PWM1 MOSI A2 P15  2|      |9  Vcc
-//      LCD (SDA) ------ MISO RXD1 P16  3|      |8  GND
-//      LCD (SCL) ------- SCK TXD1 P17  4|      |7  P37 UDM --- USB D-
-//                ---------------- RST  6|      |6  P36 UDP --- USB D+
-//                                       +------+
+//
+//    LCD1602 / 2004
+//
+//    SDA    <-->      P16 (MISO)
+//    SCL    <-->      P17 (SCK)
+//    GND    <-->      GND
+//    VCC    <-->      VCC *
+//
+//    * Most LCD1602/2004 operate on 5v. Some variants might use only 3v.
+//      Please check documentation for details.
 //
 // Compilation Instructions:
 // -------------------------
